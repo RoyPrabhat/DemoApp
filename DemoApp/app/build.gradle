@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        jcenter {}
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.example.demoapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.demoapp"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "TEST_API_KEY", "\"${project.findProperty("TEST_API_KEY")}\"")
+        buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
+        }
+    }
+}
+
+dependencies {
+
+    kapt "com.google.dagger:hilt-compiler:2.51.1"
+
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.activity.compose
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
+    implementation "com.google.code.gson:gson:$rootProject.gson_version"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout_version"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_viewmodel_version"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide_compiler_version"
+}
+
+kapt {
+    correctErrorTypes true
+}

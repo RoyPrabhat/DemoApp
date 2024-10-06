@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DemoApp</string>
+    <string name="retry_cta">Retry</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="error_message">Oops!! Something went wrong..</string>
+    <string name="similar_movies_label">Similar Movies</string>
+</resources>
