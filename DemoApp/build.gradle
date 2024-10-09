@@ -26,4 +26,5 @@ ext {
     glide_compiler_version = '4.16.0'
     hilt_version = '2.51.1'
     jupiter_version = '5.8.1'
+    coroutine_test_version = '1.7.3'
 }
