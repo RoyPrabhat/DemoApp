@@ -1,0 +1,112 @@
+package com.example.demoapp.ui.details
+
+import androidx.lifecycle.SavedStateHandle
+import com.example.demoapp.data.model.Movie
+import com.example.demoapp.data.model.MovieList
+import com.example.demoapp.data.repository.MovieDetailsRepository
+import io.mockk.clearAllMocks
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+
+class MovieDetailsViewModelTest {
+
+    private lateinit var viewModel: MovieDetailsViewModel
+    private lateinit var repository: MovieDetailsRepository
+    private lateinit var savedStateHandle: SavedStateHandle
+    private val testDispatcher = StandardTestDispatcher()
+
+    companion object {
+        const val MOVIE_ID_KEY ="movieId"
+        const val MOVIE_ID_VALUE = 1L
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Before
+    fun setup() {
+        Dispatchers.setMain(testDispatcher)
+        repository = mockk(relaxed = true)
+        savedStateHandle = mockk(relaxed = true)
+        every { savedStateHandle.get<Long>(MOVIE_ID_KEY) } returns MOVIE_ID_VALUE
+        viewModel = MovieDetailsViewModel(repository, testDispatcher, savedStateHandle)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun teardown(){
+        Dispatchers.resetMain()
+        clearAllMocks()
+    }
+
+    @Test
+    fun `getMovieDetails - api returns success`() = runTest {
+        var movieDetailsResponse = Movie()
+        val response = flow<Movie> { movieDetailsResponse }
+        coEvery { repository.getMovieDetails(MOVIE_ID_VALUE) }  returns response
+
+        viewModel.fetchMovieDetails()
+
+        run {
+            viewModel.movieDetailsState.value.apply {
+                MovieDetailsUiState.Loading
+                MovieDetailsUiState.Success(movieDetailsResponse)
+            }
+        }
+    }
+
+    @Test
+    fun `getMovieDetails - api returns error`() = runTest {
+        var errorResponse = Throwable()
+        val response = flow<Movie> { errorResponse }
+        coEvery { repository.getMovieDetails(MOVIE_ID_VALUE) }  returns response
+
+        viewModel.fetchMovieDetails()
+
+        run {
+            viewModel.movieDetailsState.value.apply {
+                MovieDetailsUiState.Loading
+                MovieDetailsUiState.Error(errorResponse)
+            }
+        }
+    }
+
+    @Test
+    fun `getMovieDetails - fetch similar movies data- api returns success`() = runTest {
+        val movieListResponse = MovieList(emptyList())
+        val response = flow<MovieList> { movieListResponse }
+        coEvery { repository.getSimilarMovies(MOVIE_ID_VALUE) }  returns response
+
+        viewModel.fetchMovieDetails()
+
+        run {
+            viewModel.similarMovieState.value.apply {
+                SimilarMovieUIState.Success(movieListResponse)
+            }
+        }
+    }
+
+    @Test
+    fun `getMovieDetails - fetch similar movies data- api returns error`() = runTest {
+        var errorResponse = Throwable()
+        val response = flow<MovieList> { errorResponse }
+        coEvery { repository.getSimilarMovies(MOVIE_ID_VALUE) }  returns response
+
+        viewModel.fetchMovieDetails()
+
+        run {
+            viewModel.similarMovieState.value.apply {
+                SimilarMovieUIState.Error(errorResponse)
+            }
+        }
+    }
+}
