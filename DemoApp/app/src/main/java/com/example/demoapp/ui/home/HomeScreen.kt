@@ -108,9 +108,9 @@ fun MovieColumn(item: Movie, onItemClick : (Movie) -> Unit) {
                 Text(text = it, style = MaterialTheme.typography.labelSmall, maxLines = 1,  overflow = TextOverflow.Ellipsis,)
             }
             item.overview?.let {
-                Text(text = it, maxLines = 5, overflow = TextOverflow.Ellipsis,
+                Text(text = it, maxLines = 7, overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
-                    style = MaterialTheme.typography.bodyMedium)
+                    style = MaterialTheme.typography.bodySmall)
             }
         }
     }

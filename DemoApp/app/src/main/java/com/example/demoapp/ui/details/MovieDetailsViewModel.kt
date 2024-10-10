@@ -3,8 +3,8 @@ package com.example.demoapp.ui.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.demoapp.data.repository.MovieDetailsRepository
 import com.example.demoapp.di.IoDispatcher
+import com.example.demoapp.domain.MovieDetailsUseCase
 import com.example.demoapp.utils.Constants.MOVIE_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieDetailsViewModel @Inject constructor(private val movieDetailsRepository: MovieDetailsRepository,
+class MovieDetailsViewModel @Inject constructor(private val movieDetailsUseCase: MovieDetailsUseCase,
                                                 @IoDispatcher private val ioDispatcher: CoroutineDispatcher, savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private val filmId = savedStateHandle.get<Long>(MOVIE_ID)
@@ -35,7 +35,7 @@ class MovieDetailsViewModel @Inject constructor(private val movieDetailsReposito
         viewModelScope.launch(ioDispatcher) {
             _movieDetailsResponse.value = MovieDetailsUiState.Loading
             filmId?.let {
-                movieDetailsRepository.getMovieDetails(it).catch {
+                movieDetailsUseCase.getMovieDetails(it).catch {
                     _movieDetailsResponse.value = MovieDetailsUiState.Error(it)
                 }.collect {
                     _movieDetailsResponse.value = MovieDetailsUiState.Success(it)

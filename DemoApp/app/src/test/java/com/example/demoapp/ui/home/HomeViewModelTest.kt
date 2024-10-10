@@ -2,6 +2,7 @@ package com.example.demoapp.ui.home
 
 import com.example.demoapp.data.model.MovieList
 import com.example.demoapp.data.repository.HomePageRepositoryImpl
+import com.example.demoapp.domain.TopRatedMovieUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -19,15 +20,15 @@ import org.junit.Test
 class HomeViewModelTest {
 
     private lateinit var viewModel: HomeViewModel
-    private lateinit var repository: HomePageRepositoryImpl
+    private lateinit var useCase: TopRatedMovieUseCase
     private val testDispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = mockk(relaxed = true)
-        viewModel = HomeViewModel(repository, testDispatcher)
+        useCase = mockk(relaxed = true)
+        viewModel = HomeViewModel(useCase, testDispatcher)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -41,7 +42,7 @@ class HomeViewModelTest {
     fun `getTopRatedMovies - api returns success`() = runTest {
         val movieListResponse = MovieList(emptyList())
         val response = flow<MovieList> { movieListResponse }
-        coEvery { repository.getTopRatedMovie() }  returns response
+        coEvery { useCase.getTopRatedMovies() }  returns response
 
         viewModel.getTopRatedMovie()
 
@@ -57,7 +58,7 @@ class HomeViewModelTest {
     fun `getTopRatedMovies - api returns error`() = runTest {
         val errorResponse = Throwable()
         val response = flow<MovieList> { errorResponse }
-        coEvery { repository.getTopRatedMovie() }  returns response
+        coEvery { useCase.getTopRatedMovies() }  returns response
 
         viewModel.getTopRatedMovie()
 

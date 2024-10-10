@@ -4,6 +4,6 @@ import com.example.demoapp.data.model.MovieList
 import kotlinx.coroutines.flow.Flow
 
 interface HomePageRepository {
-    suspend fun getTopRatedMovie() : Flow<MovieList>
+    suspend fun getTopRatedMovies() : Flow<MovieList>
 
 }

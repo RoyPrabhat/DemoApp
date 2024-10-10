@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class HomePageRepositoryImpl @Inject constructor(private val apiDataSource: ApiDataSource) : HomePageRepository {
 
-    override suspend fun getTopRatedMovie() = apiDataSource.getTopRatedMovies()
+    override suspend fun getTopRatedMovies() = apiDataSource.getTopRatedMovies()
 }
