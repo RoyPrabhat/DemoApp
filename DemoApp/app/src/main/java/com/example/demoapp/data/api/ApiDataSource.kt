@@ -1,15 +1,12 @@
 package com.example.demoapp.data.api
 
-import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
+import com.example.demoapp.data.model.Movie
+import com.example.demoapp.data.model.MovieList
+import kotlinx.coroutines.flow.Flow
 
-class ApiDataSource @Inject constructor(private val movieService: MovieService) {
+interface ApiDataSource {
 
-    suspend fun getTopRatedMovies() = flow {
-        emit(movieService.getTopRatedMovies())
-    }
+    suspend fun getTopRatedMovies() : Flow<MovieList>
 
-    suspend fun getMovieData(id : Long) = flow {
-        emit(movieService.getMovieData(id))
-    }
+    suspend fun getMovieData(id : Long) : Flow<Movie>
 }

@@ -2,7 +2,7 @@ package com.example.demoapp.ui.details
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.demoapp.data.model.Movie
-import com.example.demoapp.data.repository.MovieDetailsRepository
+import com.example.demoapp.data.repository.MovieDetailsRepositoryImpl
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.every
@@ -21,7 +21,7 @@ import org.junit.Test
 class MovieDetailsViewModelTest {
 
     private lateinit var viewModel: MovieDetailsViewModel
-    private lateinit var repository: MovieDetailsRepository
+    private lateinit var repository: MovieDetailsRepositoryImpl
     private lateinit var savedStateHandle: SavedStateHandle
     private val testDispatcher = StandardTestDispatcher()
 

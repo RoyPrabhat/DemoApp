@@ -1,9 +1,9 @@
 package com.example.demoapp.data.repository
 
-import com.example.demoapp.data.api.ApiDataSource
-import javax.inject.Inject
+import com.example.demoapp.data.model.MovieList
+import kotlinx.coroutines.flow.Flow
 
-class HomePageRepository @Inject constructor(private val apiDataSource: ApiDataSource) {
+interface HomePageRepository {
+    suspend fun getTopRatedMovie() : Flow<MovieList>
 
-    suspend fun getTopRatedMovie() = apiDataSource.getTopRatedMovies()
 }

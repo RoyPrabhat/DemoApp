@@ -1,7 +1,7 @@
 package com.example.demoapp.ui.home
 
 import com.example.demoapp.data.model.MovieList
-import com.example.demoapp.data.repository.HomePageRepository
+import com.example.demoapp.data.repository.HomePageRepositoryImpl
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -19,7 +19,7 @@ import org.junit.Test
 class HomeViewModelTest {
 
     private lateinit var viewModel: HomeViewModel
-    private lateinit var repository: HomePageRepository
+    private lateinit var repository: HomePageRepositoryImpl
     private val testDispatcher = StandardTestDispatcher()
 
     @OptIn(ExperimentalCoroutinesApi::class)
