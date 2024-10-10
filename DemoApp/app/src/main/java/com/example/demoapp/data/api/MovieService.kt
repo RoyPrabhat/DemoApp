@@ -12,7 +12,4 @@ interface MovieService {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieData(@Path("movie_id") id : Long) : Movie
-
-    @GET("movie/{movie_id}/similar")
-    suspend fun getSimilarMovies(@Path("movie_id") id : Long) : MovieList
 }

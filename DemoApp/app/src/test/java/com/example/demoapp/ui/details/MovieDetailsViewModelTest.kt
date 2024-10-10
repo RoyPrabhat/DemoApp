@@ -2,7 +2,6 @@ package com.example.demoapp.ui.details
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.demoapp.data.model.Movie
-import com.example.demoapp.data.model.MovieList
 import com.example.demoapp.data.repository.MovieDetailsRepository
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
@@ -76,36 +75,6 @@ class MovieDetailsViewModelTest {
             viewModel.movieDetailsState.value.apply {
                 MovieDetailsUiState.Loading
                 MovieDetailsUiState.Error(errorResponse)
-            }
-        }
-    }
-
-    @Test
-    fun `getMovieDetails - fetch similar movies data- api returns success`() = runTest {
-        val movieListResponse = MovieList(emptyList())
-        val response = flow<MovieList> { movieListResponse }
-        coEvery { repository.getSimilarMovies(MOVIE_ID_VALUE) }  returns response
-
-        viewModel.fetchMovieDetails()
-
-        run {
-            viewModel.similarMovieState.value.apply {
-                SimilarMovieUIState.Success(movieListResponse)
-            }
-        }
-    }
-
-    @Test
-    fun `getMovieDetails - fetch similar movies data- api returns error`() = runTest {
-        var errorResponse = Throwable()
-        val response = flow<MovieList> { errorResponse }
-        coEvery { repository.getSimilarMovies(MOVIE_ID_VALUE) }  returns response
-
-        viewModel.fetchMovieDetails()
-
-        run {
-            viewModel.similarMovieState.value.apply {
-                SimilarMovieUIState.Error(errorResponse)
             }
         }
     }

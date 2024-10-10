@@ -1,13 +1,10 @@
 package com.example.demoapp.di
 
-import android.content.Context
-import com.bumptech.glide.Glide
 import com.example.demoapp.BuildConfig
 import com.example.demoapp.data.api.MovieService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor
@@ -39,16 +36,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesGlide(@ApplicationContext context: Context) = Glide.with(context)
-
-    @Provides
-    @Singleton
     @IoDispatcher
     fun providesIoDispatcher() = Dispatchers.IO
 
     private fun getInterceptor() = Interceptor { chain->
         val request = chain.request()
-        val newRequest = request.url().newBuilder().
+        val newRequest = request.url.newBuilder().
             addQueryParameter(API_KEY, BuildConfig.TEST_API_KEY).
             build()
         chain.proceed(request.newBuilder().
