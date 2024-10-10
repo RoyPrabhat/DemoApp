@@ -49,6 +49,10 @@ android {
     buildFeatures {
         viewBinding true
         buildConfig true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packagingOptions {
         resources {
@@ -73,12 +77,23 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_viewmodel_version"
     implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
     implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    implementation "io.coil-kt:coil-compose:2.4.0"
 
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide_compiler_version"
 
     testImplementation "junit:junit:$rootProject.junit_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutine_test_version"
     testImplementation "io.mockk:mockk:$rootProject.mockK_version"
+
+    def composeBom = platform('androidx.compose:compose-bom:2024.09.03')
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
 
 kapt {

@@ -7,7 +7,7 @@ import com.example.demoapp.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,7 +17,8 @@ class HomeViewModel @Inject constructor(private val homePageRepository: HomePage
                                         @IoDispatcher private val ioDispatcher: CoroutineDispatcher) : ViewModel() {
 
     private val _homePageUiState = MutableStateFlow<HomePageUiState>(HomePageUiState.Loading)
-    val homePageUiState = _homePageUiState.asStateFlow()
+    val homePageUiState : StateFlow<HomePageUiState>
+        get() = _homePageUiState
 
     init {
         getTopRatedMovie()

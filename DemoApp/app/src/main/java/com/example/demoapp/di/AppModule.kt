@@ -48,7 +48,7 @@ object AppModule {
 
     private fun getInterceptor() = Interceptor { chain->
         val request = chain.request()
-        val newRequest = request.url().newBuilder().
+        val newRequest = request.url.newBuilder().
             addQueryParameter(API_KEY, BuildConfig.TEST_API_KEY).
             build()
         chain.proceed(request.newBuilder().
