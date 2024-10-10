@@ -11,10 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,6 +34,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.demoapp.R
+import com.example.demoapp.ui.common.ShowLoader
 import com.example.demoapp.ui.theme.lightGray
 import com.example.demoapp.utils.StringUtil
 
@@ -118,15 +116,4 @@ fun MovieColumn(item: Movie, onItemClick : (Movie) -> Unit) {
     HorizontalDivider(thickness = 2.dp, modifier = Modifier
         .padding(16.dp)
         .background(color = lightGray))
-}
-
-
-@Composable
-fun ShowLoader(){
-    CircularProgressIndicator(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center),
-        color = MaterialTheme.colorScheme.secondary,
-        trackColor = MaterialTheme.colorScheme.surfaceVariant)
 }

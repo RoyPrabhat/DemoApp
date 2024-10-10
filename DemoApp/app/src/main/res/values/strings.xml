@@ -5,4 +5,7 @@
     <string name="error_message">Oops!! Something went wrong..</string>
     <string name="similar_movies_label">Similar Movies</string>
     <string name="average_rating_label">rating %s</string>
+    <string name="genres_label">Genres</string>
+    <string name="release_date">Release date</string>
+    <string name="average_rating">Average rating</string>
 </resources>

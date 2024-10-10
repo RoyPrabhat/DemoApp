@@ -12,8 +12,4 @@ class ApiDataSource @Inject constructor(private val movieService: MovieService) 
     suspend fun getMovieData(id : Long) = flow {
         emit(movieService.getMovieData(id))
     }
-
-    suspend fun getSimilarMovies(id : Long) = flow {
-        emit(movieService.getSimilarMovies(id))
-    }
 }

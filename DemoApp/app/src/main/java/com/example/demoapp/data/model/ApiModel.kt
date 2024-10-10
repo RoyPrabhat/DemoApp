@@ -13,4 +13,10 @@ data class Movie(val id : Long? = null,
      @SerializedName("poster_path") val posterPath : String? = null,
      @SerializedName("backdrop_path") val backdropPath : String? = null,
      @SerializedName("vote_average") val voteAverage : String? = null,
-     @SerializedName("release_date") val releaseDate : String? = null)
+     @SerializedName("release_date") val releaseDate : String? = null,
+     val genres : List<Genre>? = null,
+)
+
+@Keep
+data class Genre(val id : Long? = null,
+                 val name : String? = null)
