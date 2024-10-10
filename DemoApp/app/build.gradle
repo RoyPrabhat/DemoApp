@@ -47,7 +47,6 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
         buildConfig true
         compose true
     }
@@ -64,36 +63,24 @@ android {
 }
 
 dependencies {
-
-    kapt "com.google.dagger:hilt-compiler:2.51.1"
+    def composeBom = platform(libs.compose.bom)
+    kapt libs.hilt.compiler
 
     implementation libs.androidx.appcompat
     implementation libs.androidx.activity.compose
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
-    implementation "com.google.code.gson:gson:$rootProject.gson_version"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout_version"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_viewmodel_version"
-    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
-    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
-    implementation "io.coil-kt:coil-compose:2.4.0"
-
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide_compiler_version"
-
-    testImplementation "junit:junit:$rootProject.junit_version"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutine_test_version"
-    testImplementation "io.mockk:mockk:$rootProject.mockK_version"
-
-    def composeBom = platform('androidx.compose:compose-bom:2024.09.03')
+    implementation libs.squareup.retrofit
+    implementation libs.squareup.retrofit.gsonconveter
+    implementation libs.gson
+    implementation libs.lifecycle.viewmodel
+    implementation libs.hilt
+    implementation libs.coil.compose
     implementation composeBom
-    androidTestImplementation composeBom
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5'
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    implementation libs.androidx.material3
+    implementation libs.viewmodel.lifecycle.compose
+
+    testImplementation libs.junit
+    testImplementation libs.coroutines.test
+    testImplementation libs.mockk
 }
 
 kapt {
