@@ -10,47 +10,38 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
+private val DarkModeScheme = darkColorScheme(
     primary = colorPrimary,
     secondary = colorPrimaryDark,
     tertiary = colorAccent
 )
 
-private val LightColorScheme = lightColorScheme(
+private val LightModeScheme= lightColorScheme(
     primary = colorPrimary,
     secondary = colorPrimaryDark,
     tertiary = colorAccent
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
 )
 
 @Composable
-fun DemoAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+fun DemoApplicationTheme(
+    darkTheme : Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
+    content: @Composable () -> Unit) {
+    val scheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if(darkTheme) {
+                dynamicDarkColorScheme(context)
+            } else {
+                dynamicLightColorScheme(context)
+            }
         }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> DarkModeScheme
+        else -> LightModeScheme
     }
-
     MaterialTheme(
-        colorScheme = colorScheme,
-        content = content
+        colorScheme = scheme,
+        content = content,
+        typography = DemoAppTypography
     )
 }

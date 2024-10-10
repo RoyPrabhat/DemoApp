@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Surface
 import androidx.compose.ui.graphics.Color
-import com.example.demoapp.ui.theme.DemoAppTheme
+import com.example.demoapp.ui.theme.DemoApplicationTheme
 import com.example.demoapp.utils.Constants.MOVIE_ID
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +27,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DemoAppTheme {
+            DemoApplicationTheme {
                 Surface(color = Color.White) {
                     DetailsScreenComposable(::goBack)
                 }

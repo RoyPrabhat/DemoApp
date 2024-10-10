@@ -7,7 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.graphics.Color
 import com.example.demoapp.data.model.Movie
 import com.example.demoapp.ui.details.MovieDetailsActivity
-import com.example.demoapp.ui.theme.DemoAppTheme
+import com.example.demoapp.ui.theme.DemoApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,7 +16,7 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DemoAppTheme {
+            DemoApplicationTheme{
                 Surface(color = Color.White) {
                     HomeScreenComposable(::setItemClockListener)
                 }

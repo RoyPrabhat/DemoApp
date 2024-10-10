@@ -1,96 +1,54 @@
 package com.example.demoapp.ui.theme
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-val TypographyHeading = Typography(
-    bodyLarge = TextStyle(
+val DemoAppTypography = Typography(
+    labelMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        color = black16,
-        fontSize = 16.sp,
+        fontWeight = FontWeight.Medium,
+        fontSize = 20.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.5.sp,
-    )
-)
-
-val TypographyHeadingMedium = Typography(
-    bodyLarge = TextStyle(
+        letterSpacing = 1.sp,
+    ),
+    headlineLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        color = black16,
-        fontSize = 28.sp,
-        lineHeight = 36.sp,
-        letterSpacing = 0.5.sp,
-    )
-)
-
-val TypographyHeadingSmall = Typography(
-    bodyLarge = TextStyle(
+        color = Color.Black,
+        fontSize = 24.sp,
+        lineHeight = 32.sp,
+        letterSpacing = 1.sp,
+        textAlign = TextAlign.Start),
+    bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        color = black16,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.5.sp,
-    )
-)
-
-val TypographyHeadingXS = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        color = black16,
         fontSize = 18.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-)
-
-val TypographyHeadingXSmall = Typography(
-    bodyLarge = TextStyle(
+        lineHeight = 22.sp,
+        letterSpacing = 1.sp),
+    labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        color = black16,
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         lineHeight = 20.sp,
-        letterSpacing = 0.5.sp
-    )
-)
-
-
-val TypographyBodySmall = Typography(
-    bodyLarge = TextStyle(
+        letterSpacing = 1.sp),
+    labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        color = gray,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-        letterSpacing = 0.5.sp
-    )
-)
-
-val TypographyBodyXSmall = Typography(
-    bodyLarge = TextStyle(
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
+        letterSpacing = 1.sp),
+    titleMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        color = gray,
-        fontSize = 12.sp,
-        lineHeight = 18.sp,
-        letterSpacing = 0.5.sp
-    )
+        fontSize = 20.sp,
+        lineHeight = 34.sp,
+        letterSpacing = 1.sp)
 )
-
-val TypographyBodyXSmalInbverted = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        color = whiteE6
-    )
-)
-
-
-

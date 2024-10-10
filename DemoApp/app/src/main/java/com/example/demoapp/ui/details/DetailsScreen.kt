@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -60,7 +61,7 @@ fun MovieDetails(state: Movie, navigateBack: () -> Unit) {
     Scaffold(
         topBar ={
             TopAppBar(
-                title = {Text(state.title!!)},
+                title = {Text(text = state.title!!, style = MaterialTheme.typography.headlineLarge)},
                 navigationIcon = {
                 IconButton(onClick = {navigateBack()}) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "", tint = Color.Black)
@@ -77,25 +78,25 @@ fun MovieDetails(state: Movie, navigateBack: () -> Unit) {
                     .padding(paddingValues)
                     .wrapContentHeight(),
             )
-            Text(text = state.overview!!, modifier = Modifier.padding(16.dp, 16.dp), fontSize = 18.sp)
+            Text(text = state.overview!!, modifier = Modifier.padding(16.dp, 16.dp), style = MaterialTheme.typography.bodyMedium)
 
             Text(text = LocalContext.current.getString(R.string.genres_label), modifier = Modifier.padding(16.dp, 0.dp, 16.dp, 0.dp),
-                fontWeight = FontWeight.Bold, fontSize = 24.sp)
+                style = MaterialTheme.typography.labelLarge)
 
             Text(text = StringUtil.getGenresList(state.genres!!), modifier = Modifier.padding(16.dp, 0.dp),
-                fontSize = 16.sp)
+                style = MaterialTheme.typography.labelSmall)
 
             Text(text = LocalContext.current.getString(R.string.release_date), modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp),
-                fontWeight = FontWeight.Bold, fontSize = 24.sp)
+                style = MaterialTheme.typography.labelLarge)
 
             Text(text = state.releaseDate!!, modifier = Modifier.padding(16.dp, 0.dp),
-                fontSize = 16.sp)
+                style = MaterialTheme.typography.labelSmall)
 
             Text(text = LocalContext.current.getString(R.string.average_rating), modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp),
-                fontWeight = FontWeight.Bold, fontSize = 24.sp)
+                style = MaterialTheme.typography.labelLarge)
 
             Text(text = state.voteAverage!!, modifier = Modifier.padding(16.dp, 0.dp),
-                fontSize = 16.sp)
+                style = MaterialTheme.typography.labelSmall)
 
         }
 
@@ -111,7 +112,8 @@ fun ShowErrorScreen() {
         Button(onClick = { viewModel.fetchMovieDetails() },
             modifier = Modifier.align(Alignment.Center)
         ) {
-            Text(text = ContextCompat.getString(context, R.string.retry_cta))
+            Text(text = ContextCompat.getString(context, R.string.retry_cta),
+                style = MaterialTheme.typography.labelMedium)
         }
         Toast.makeText(context, ContextCompat.getString(context, R.string.error_message), Toast.LENGTH_SHORT).show()
     }

@@ -20,12 +20,12 @@ import com.example.demoapp.data.model.Movie
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,9 +49,7 @@ fun HomeScreenComposable(onItemClick: (Movie) -> Unit) {
 fun HomeScreen(state: HomePageUiState, onItemClick: (Movie) -> Unit) {
     when(state) {
         is HomePageUiState.Loading -> ShowLoader()
-        is HomePageUiState.Error -> {
-            ShowErrorScreen()
-        }
+        is HomePageUiState.Error -> ShowErrorScreen()
         is HomePageUiState.Success -> state.movieList.results?.let {
             ShowTopRatedMovies(it, onItemClick)
         }
@@ -65,7 +63,7 @@ fun ShowErrorScreen() {
         Button(onClick = { viewModel.getTopRatedMovie() },
             modifier = Modifier.align(Alignment.Center)
         ) {
-            Text(text = ContextCompat.getString(context, R.string.retry_cta))
+            Text(text = ContextCompat.getString(context, R.string.retry_cta), style = MaterialTheme.typography.labelMedium)
         }
         Toast.makeText(context, ContextCompat.getString(context, R.string.error_message), Toast.LENGTH_SHORT).show()
     }
@@ -74,14 +72,11 @@ fun ShowErrorScreen() {
 @Composable
 fun ShowTopRatedMovies(movieList: List<Movie>, onItemClick: (Movie) -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = "TOP RATED MOVIES",
+        Text(text = "Top rated movies",
             modifier = Modifier
                 .padding(16.dp)
                 .height(24.dp)
-                .fillMaxWidth(),
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
-            textAlign = TextAlign.Start)
+                .fillMaxWidth(), style = MaterialTheme.typography.headlineLarge)
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(movieList, key = {item -> item.id!!}) { item ->
                 MovieColumn(item, onItemClick = onItemClick)
@@ -104,13 +99,14 @@ fun MovieColumn(item: Movie, onItemClick : (Movie) -> Unit) {
             )
             Row {
                 Text(text = item.releaseDate!!,
-                    modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp),
-                    fontWeight = FontWeight.Bold)
+                    modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp), style = MaterialTheme.typography.labelSmall)
             }
         }
         Column(modifier = Modifier.padding(0.dp, 0.dp, 16.dp, 0.dp)) {
-            Text(text = item.title!!, fontWeight = FontWeight.Bold, fontSize = 20.sp, maxLines = 1,  overflow = TextOverflow.Ellipsis,)
-            Text(text = item.overview!!, maxLines = 5, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp))
+            Text(text = item.title!!, style = MaterialTheme.typography.labelSmall, maxLines = 1,  overflow = TextOverflow.Ellipsis,)
+            Text(text = item.overview!!, maxLines = 5, overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
+                style = MaterialTheme.typography.bodyMedium)
         }
     }
     HorizontalDivider(thickness = 2.dp, modifier = Modifier
