@@ -25,10 +25,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -89,24 +87,31 @@ fun ShowTopRatedMovies(movieList: List<Movie>, onItemClick: (Movie) -> Unit) {
 fun MovieColumn(item: Movie, onItemClick : (Movie) -> Unit) {
     Row(modifier = Modifier.clickable {onItemClick(item)}) {
         Column(modifier = Modifier.padding(16.dp,0.dp, 16.dp, 0.dp)) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(StringUtil.buildImageUrl(item.posterPath!!)).crossfade(true).build(),
-                contentDescription = "",
-                modifier = Modifier
-                    .height(124.dp)
-                    .width(92.dp),
-            )
+            item.posterPath?.let {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(StringUtil.buildImageUrl(it)).crossfade(true).build(),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .height(124.dp)
+                        .width(92.dp),
+                )
+            }
             Row {
-                Text(text = item.releaseDate!!,
-                    modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp), style = MaterialTheme.typography.labelSmall)
+                item.releaseDate?.let {
+                    Text(text = it, modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp), style = MaterialTheme.typography.labelSmall)
+                }
             }
         }
         Column(modifier = Modifier.padding(0.dp, 0.dp, 16.dp, 0.dp)) {
-            Text(text = item.title!!, style = MaterialTheme.typography.labelSmall, maxLines = 1,  overflow = TextOverflow.Ellipsis,)
-            Text(text = item.overview!!, maxLines = 5, overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
-                style = MaterialTheme.typography.bodyMedium)
+            item.title?.let {
+                Text(text = it, style = MaterialTheme.typography.labelSmall, maxLines = 1,  overflow = TextOverflow.Ellipsis,)
+            }
+            item.overview?.let {
+                Text(text = it, maxLines = 5, overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
+                    style = MaterialTheme.typography.bodyMedium)
+            }
         }
     }
     HorizontalDivider(thickness = 2.dp, modifier = Modifier

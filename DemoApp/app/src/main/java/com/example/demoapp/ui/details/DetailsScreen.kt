@@ -55,11 +55,14 @@ fun MovieDetailsComposable(state: MovieDetailsUiState, navigateBack: () -> Unit)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieDetails(state: Movie, navigateBack: () -> Unit) {
+fun MovieDetails(movie: Movie, navigateBack: () -> Unit) {
     Scaffold(
         topBar ={
             TopAppBar(
-                title = {Text(text = state.title!!, style = MaterialTheme.typography.headlineLarge)},
+                title = {
+                    movie.title?.let {
+                        Text(text = it, style = MaterialTheme.typography.headlineLarge)
+                    } },
                 navigationIcon = {
                 IconButton(onClick = {navigateBack()}) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "", tint = Color.Black)
@@ -67,34 +70,45 @@ fun MovieDetails(state: Movie, navigateBack: () -> Unit) {
             })
         }) { paddingValues ->
         Column {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(StringUtil.buildImageUrl(state.backdropPath!!)).crossfade(true).build(),
-                contentDescription = "",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(paddingValues)
-                    .wrapContentHeight(),
-            )
-            Text(text = state.overview!!, modifier = Modifier.padding(16.dp, 16.dp), style = MaterialTheme.typography.bodyMedium)
+            movie.backdropPath?.let {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(StringUtil.buildImageUrl(it)).crossfade(true).build(),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(paddingValues)
+                        .wrapContentHeight(),
+                )
+            }
+            movie.overview?.let {
+                Text(text = it, modifier = Modifier.padding(16.dp, 16.dp), style = MaterialTheme.typography.bodyMedium)
+            }
 
-            Text(text = LocalContext.current.getString(R.string.genres_label), modifier = Modifier.padding(16.dp, 0.dp, 16.dp, 0.dp),
-                style = MaterialTheme.typography.labelLarge)
+            movie.genres?.let {
+                Text(text = LocalContext.current.getString(R.string.genres_label), modifier = Modifier.padding(16.dp, 0.dp, 16.dp, 0.dp),
+                    style = MaterialTheme.typography.labelLarge)
 
-            Text(text = StringUtil.getGenresList(state.genres!!), modifier = Modifier.padding(16.dp, 0.dp),
-                style = MaterialTheme.typography.labelSmall)
+                Text(text = StringUtil.getGenresList(it), modifier = Modifier.padding(16.dp, 0.dp),
+                    style = MaterialTheme.typography.labelSmall)
+            }
 
-            Text(text = LocalContext.current.getString(R.string.release_date), modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp),
-                style = MaterialTheme.typography.labelLarge)
+            movie.releaseDate?.let {
+                Text(text = LocalContext.current.getString(R.string.release_date), modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp),
+                    style = MaterialTheme.typography.labelLarge)
 
-            Text(text = state.releaseDate!!, modifier = Modifier.padding(16.dp, 0.dp),
-                style = MaterialTheme.typography.labelSmall)
+                Text(text = it, modifier = Modifier.padding(16.dp, 0.dp),
+                    style = MaterialTheme.typography.labelSmall)
+            }
 
-            Text(text = LocalContext.current.getString(R.string.average_rating), modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp),
-                style = MaterialTheme.typography.labelLarge)
+            movie.voteAverage?.let {
+                Text(text = LocalContext.current.getString(R.string.average_rating), modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp),
+                    style = MaterialTheme.typography.labelLarge)
 
-            Text(text = state.voteAverage!!, modifier = Modifier.padding(16.dp, 0.dp),
-                style = MaterialTheme.typography.labelSmall)
+                Text(text = it, modifier = Modifier.padding(16.dp, 0.dp),
+                    style = MaterialTheme.typography.labelSmall)
+
+            }
 
         }
 
