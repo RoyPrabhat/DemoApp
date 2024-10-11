@@ -59,9 +59,9 @@ fun ShowErrorScreen() {
     val viewModel : HomeViewModel = viewModel()
     Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
         Button(onClick = { viewModel.getTopRatedMovie() },
-            modifier = Modifier.align(Alignment.Center)
-        ) {
-            Text(text = ContextCompat.getString(context, R.string.retry_cta), style = MaterialTheme.typography.labelMedium)
+            modifier = Modifier.align(Alignment.Center)) {
+            Text(text = ContextCompat.getString(context, R.string.retry_cta),
+                style = MaterialTheme.typography.labelMedium)
         }
         Toast.makeText(context, ContextCompat.getString(context, R.string.error_message), Toast.LENGTH_SHORT).show()
     }
@@ -70,14 +70,12 @@ fun ShowErrorScreen() {
 @Composable
 fun ShowTopRatedMovies(movieList: List<Movie>, onItemClick: (Movie) -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = "Top rated movies",
-            modifier = Modifier
-                .padding(16.dp)
-                .height(24.dp)
-                .fillMaxWidth(), style = MaterialTheme.typography.headlineLarge)
+        Text(text = ContextCompat.getString(LocalContext.current, R.string.top_rated_movies),
+            modifier = Modifier.padding(16.dp).height(24.dp).fillMaxWidth(),
+            style = MaterialTheme.typography.headlineLarge)
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(movieList, key = {item -> item.id!!}) { item ->
-                MovieColumn(item, onItemClick = onItemClick)
+            items(movieList, key = { item -> item.id!! }) { item ->
+                MovieColumn(item = item, onItemClick = onItemClick)
             }
         }
     }
@@ -85,27 +83,27 @@ fun ShowTopRatedMovies(movieList: List<Movie>, onItemClick: (Movie) -> Unit) {
 
 @Composable
 fun MovieColumn(item: Movie, onItemClick : (Movie) -> Unit) {
-    Row(modifier = Modifier.clickable {onItemClick(item)}) {
-        Column(modifier = Modifier.padding(16.dp,0.dp, 16.dp, 0.dp)) {
+    Row(modifier = Modifier.clickable { onItemClick(item) }) {
+        Column(modifier = Modifier.padding(16.dp, 0.dp, 16.dp, 0.dp)) {
             item.posterPath?.let {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(StringUtil.buildImageUrl(it)).crossfade(true).build(),
                     contentDescription = "",
-                    modifier = Modifier
-                        .height(124.dp)
-                        .width(92.dp),
-                )
+                    modifier = Modifier.height(124.dp).width(92.dp),)
             }
             Row {
                 item.releaseDate?.let {
-                    Text(text = it, modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp), style = MaterialTheme.typography.labelSmall)
+                    Text(text = it,
+                        modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp),
+                        style = MaterialTheme.typography.labelSmall)
                 }
             }
         }
         Column(modifier = Modifier.padding(0.dp, 0.dp, 16.dp, 0.dp)) {
             item.title?.let {
-                Text(text = it, style = MaterialTheme.typography.labelSmall, maxLines = 1,  overflow = TextOverflow.Ellipsis,)
+                Text(text = it, style = MaterialTheme.typography.labelSmall,
+                    maxLines = 1,  overflow = TextOverflow.Ellipsis,)
             }
             item.overview?.let {
                 Text(text = it, maxLines = 7, overflow = TextOverflow.Ellipsis,
@@ -114,7 +112,6 @@ fun MovieColumn(item: Movie, onItemClick : (Movie) -> Unit) {
             }
         }
     }
-    HorizontalDivider(thickness = 2.dp, modifier = Modifier
-        .padding(16.dp)
-        .background(color = lightGray))
+    HorizontalDivider(thickness = 2.dp,
+        modifier = Modifier.padding(16.dp).background(color = lightGray))
 }

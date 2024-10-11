@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(private val movieDetailsUseCase: MovieDetailsUseCase,
-                                                @IoDispatcher private val ioDispatcher: CoroutineDispatcher, savedStateHandle: SavedStateHandle) : ViewModel() {
+                                                @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+                                                savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private val filmId = savedStateHandle.get<Long>(MOVIE_ID)
     private val _movieDetailsResponse = MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)

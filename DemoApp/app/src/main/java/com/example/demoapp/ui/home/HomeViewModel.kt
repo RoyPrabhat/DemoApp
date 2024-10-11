@@ -13,11 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val topRatedMovieUseCase: TopRatedMovieUseCase,
-                                        @IoDispatcher private val ioDispatcher: CoroutineDispatcher) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val topRatedMovieUseCase: TopRatedMovieUseCase,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val _homePageUiState = MutableStateFlow<HomePageUiState>(HomePageUiState.Loading)
-    val homePageUiState : StateFlow<HomePageUiState>
+    val homePageUiState: StateFlow<HomePageUiState>
         get() = _homePageUiState
 
     init {

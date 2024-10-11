@@ -16,7 +16,7 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DemoApplicationTheme{
+            DemoApplicationTheme {
                 Surface(color = Color.White) {
                     HomeScreenComposable(::setItemClockListener)
                 }

@@ -9,11 +9,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ShowLoader(){
+fun ShowLoader() {
     CircularProgressIndicator(
         modifier = Modifier
             .fillMaxSize()
             .wrapContentSize(Alignment.Center),
         color = MaterialTheme.colorScheme.secondary,
-        trackColor = MaterialTheme.colorScheme.surfaceVariant)
+        trackColor = MaterialTheme.colorScheme.surfaceVariant
+    )
 }

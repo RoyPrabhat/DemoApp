@@ -6,4 +6,5 @@ import javax.inject.Inject
 class MovieDetailsUseCase @Inject constructor(private val movieDetailsRepository: MovieDetailsRepository) {
 
     suspend fun getMovieDetails(id: Long) = movieDetailsRepository.getMovieDetails(id)
+
 }

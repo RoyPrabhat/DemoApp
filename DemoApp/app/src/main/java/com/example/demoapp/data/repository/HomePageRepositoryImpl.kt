@@ -1,9 +1,10 @@
 package com.example.demoapp.data.repository
 
-import com.example.demoapp.data.api.ApiDataSource
+import com.example.demoapp.data.api.DataSource
 import javax.inject.Inject
 
-class HomePageRepositoryImpl @Inject constructor(private val apiDataSource: ApiDataSource) : HomePageRepository {
+class HomePageRepositoryImpl @Inject constructor(private val dataSource: DataSource) : HomePageRepository {
 
-    override suspend fun getTopRatedMovies() = apiDataSource.getTopRatedMovies()
+    override suspend fun getTopRatedMovies() = dataSource.getTopRatedMovies()
+
 }

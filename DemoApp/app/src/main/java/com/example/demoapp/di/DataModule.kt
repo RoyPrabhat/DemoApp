@@ -1,7 +1,7 @@
 package com.example.demoapp.di
 
+import com.example.demoapp.data.api.DataSource
 import com.example.demoapp.data.api.ApiDataSource
-import com.example.demoapp.data.api.ApiDataSourceImpl
 import com.example.demoapp.data.repository.HomePageRepository
 import com.example.demoapp.data.repository.HomePageRepositoryImpl
 import com.example.demoapp.data.repository.MovieDetailsRepository
@@ -15,12 +15,12 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface DataModule {
     @Binds
-    abstract fun homePageRepository(impl : HomePageRepositoryImpl) : HomePageRepository
+    abstract fun homePageRepository(impl: HomePageRepositoryImpl): HomePageRepository
 
     @Binds
-    abstract fun movieDetailsRepository(impl : MovieDetailsRepositoryImpl) : MovieDetailsRepository
+    abstract fun movieDetailsRepository(impl: MovieDetailsRepositoryImpl): MovieDetailsRepository
 
     @Binds
-    abstract fun apiDataSource(impl : ApiDataSourceImpl) : ApiDataSource
+    abstract fun apiDataSource(impl: ApiDataSource): DataSource
 
 }
