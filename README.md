@@ -1,27 +1,30 @@
 # DemoApp
 
-The Demo App contains two simple pages. It in essence is a list of items and their details page.
+The Demo App contains two simple pages and an error screen. It in essence is a list of items and their details page. 
+Items in our case are movies and the data is being fetched from free to use open source TheMovideDB platform.
 
 **Feature**
-1) Open app to see top rated movies (home page)
-2) Click on any one of the movies on the home page to see a details page, along with a horizontally scrollable list of similar movies
-3) Clicking on each of these movies in the similar movies list will take you the details page of that particular movie
+1) Open the app to see top rated movies (home page).
+2) Click on any one of the movies on the home page to see the movie details page.
+3) Press back to come to the home page
+4) In case of any API error, the error screen will be displayed with a retry button to make the API call again along with a toast message that lets the user know that something went wrong.
    
 **Follwoing are the things that I have tried to cover as a part of this app**
-1) MVVM Architechture
-2) Clean Coding architecture
+1) MVVM architechture
+2) Clean architecture
 3) Flow
 4) Coroutines
-5) Lifecyle
-6) Dependency Injection using Hilt + Dagger
-7) API erros response handling (For now only a toast is being displayed)
-8) Securely storing API Key in BuildConfig
-9) Minify & code shrinking
-10) Retry button in case of api failure to call the api again
-11) Screen loader
-12) Optimized recyler view
-13) Placeholder images
-14) Testability
+5) Compose
+6) Unit testing
+7) Lifecyle
+8) Dependency Injection using Hilt + Dagger
+9) API error response handling (For now only a toast is being displayed)
+10) Securely storing API Key in BuildConfig
+11) Minify & code shrinking
+12) Retry button in case of api failure to call the api again
+13) Screen loader
+14) Placeholder images
+15) Testable code
     
 **Application Screenshots**
 
@@ -31,7 +34,11 @@ Following is how the UI looks like in Version 1 of the app
 
 
 
-![Home_page](https://github.com/user-attachments/assets/303202d0-48ca-4324-99e2-4e1c3d74635f)
+
+
+![Home_Screen](https://github.com/user-attachments/assets/484bde37-9ea8-4fd5-8c14-05919108bd80)
+
+
 
 
 
@@ -39,4 +46,18 @@ Following is how the UI looks like in Version 1 of the app
 
 
 
-![MovieDetailsPage](https://github.com/user-attachments/assets/d5603ad8-c3f4-4bc5-8258-d55b78f845f3)
+
+
+![Details_Screen](https://github.com/user-attachments/assets/9dc3cbaa-999d-4ecb-b3ed-29fa3c80a6e5)
+
+
+
+
+
+**2)  Error Screen** 
+
+
+
+
+
+![RetryScreen](https://github.com/user-attachments/assets/6a6a2bb8-2390-4b12-9f8c-76ed9d95bf53)
