@@ -2,7 +2,6 @@ package com.example.demoapp.ui.details
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.demoapp.data.model.Movie
-import com.example.demoapp.data.repository.MovieDetailsRepositoryImpl
 import com.example.demoapp.domain.MovieDetailsUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery

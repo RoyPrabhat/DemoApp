@@ -1,7 +1,6 @@
 package com.example.demoapp.ui.home
 
 import com.example.demoapp.data.model.MovieList
-import com.example.demoapp.data.repository.HomePageRepositoryImpl
 import com.example.demoapp.domain.TopRatedMovieUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
