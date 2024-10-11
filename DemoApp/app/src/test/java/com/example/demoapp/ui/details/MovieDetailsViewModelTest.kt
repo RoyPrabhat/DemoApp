@@ -2,7 +2,7 @@ package com.example.demoapp.ui.details
 
 import androidx.lifecycle.SavedStateHandle
 import com.example.demoapp.data.model.Movie
-import com.example.demoapp.data.repository.MovieDetailsRepository
+import com.example.demoapp.domain.MovieDetailsUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.every
@@ -21,7 +21,7 @@ import org.junit.Test
 class MovieDetailsViewModelTest {
 
     private lateinit var viewModel: MovieDetailsViewModel
-    private lateinit var repository: MovieDetailsRepository
+    private lateinit var useCase: MovieDetailsUseCase
     private lateinit var savedStateHandle: SavedStateHandle
     private val testDispatcher = StandardTestDispatcher()
 
@@ -34,10 +34,10 @@ class MovieDetailsViewModelTest {
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = mockk(relaxed = true)
+        useCase = mockk(relaxed = true)
         savedStateHandle = mockk(relaxed = true)
         every { savedStateHandle.get<Long>(MOVIE_ID_KEY) } returns MOVIE_ID_VALUE
-        viewModel = MovieDetailsViewModel(repository, testDispatcher, savedStateHandle)
+        viewModel = MovieDetailsViewModel(useCase, testDispatcher, savedStateHandle)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -51,7 +51,7 @@ class MovieDetailsViewModelTest {
     fun `getMovieDetails - api returns success`() = runTest {
         var movieDetailsResponse = Movie()
         val response = flow<Movie> { movieDetailsResponse }
-        coEvery { repository.getMovieDetails(MOVIE_ID_VALUE) }  returns response
+        coEvery { useCase.getMovieDetails(MOVIE_ID_VALUE) }  returns response
 
         viewModel.fetchMovieDetails()
 
@@ -67,7 +67,7 @@ class MovieDetailsViewModelTest {
     fun `getMovieDetails - api returns error`() = runTest {
         var errorResponse = Throwable()
         val response = flow<Movie> { errorResponse }
-        coEvery { repository.getMovieDetails(MOVIE_ID_VALUE) }  returns response
+        coEvery { useCase.getMovieDetails(MOVIE_ID_VALUE) }  returns response
 
         viewModel.fetchMovieDetails()
 

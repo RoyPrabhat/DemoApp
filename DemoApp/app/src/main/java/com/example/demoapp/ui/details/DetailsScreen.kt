@@ -58,13 +58,12 @@ fun MovieDetailsComposable(state: MovieDetailsUiState, navigateBack: () -> Unit)
 fun MovieDetails(movie: Movie, navigateBack: () -> Unit) {
     Scaffold(
         topBar ={
-            TopAppBar(
-                title = {
+            TopAppBar(title = {
                     movie.title?.let {
-                        Text(text = it, style = MaterialTheme.typography.headlineLarge)
+                        Text(text = it.uppercase(), style = MaterialTheme.typography.headlineLarge)
                     } },
                 navigationIcon = {
-                IconButton(onClick = {navigateBack()}) {
+                    IconButton(onClick = { navigateBack() }) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "", tint = Color.Black)
                 }
             })
@@ -75,14 +74,14 @@ fun MovieDetails(movie: Movie, navigateBack: () -> Unit) {
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(StringUtil.buildImageUrl(it)).crossfade(true).build(),
                     contentDescription = "",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(paddingValues)
-                        .wrapContentHeight(),
-                )
+                    modifier = Modifier.fillMaxWidth().padding(paddingValues).wrapContentHeight(),)
             }
             movie.overview?.let {
-                Text(text = it, modifier = Modifier.padding(16.dp, 16.dp), style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = it,
+                    modifier = Modifier.padding(16.dp, 16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
 
             movie.genres?.let {
@@ -107,11 +106,8 @@ fun MovieDetails(movie: Movie, navigateBack: () -> Unit) {
 
                 Text(text = it, modifier = Modifier.padding(16.dp, 0.dp),
                     style = MaterialTheme.typography.labelSmall)
-
             }
-
         }
-
     }
 }
 
@@ -119,11 +115,9 @@ fun MovieDetails(movie: Movie, navigateBack: () -> Unit) {
 fun ShowErrorScreen() {
     val context = LocalContext.current
     val viewModel : MovieDetailsViewModel = viewModel()
-    Box(modifier = Modifier
-        .fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Button(onClick = { viewModel.fetchMovieDetails() },
-            modifier = Modifier.align(Alignment.Center)
-        ) {
+            modifier = Modifier.align(Alignment.Center)) {
             Text(text = ContextCompat.getString(context, R.string.retry_cta),
                 style = MaterialTheme.typography.labelMedium)
         }

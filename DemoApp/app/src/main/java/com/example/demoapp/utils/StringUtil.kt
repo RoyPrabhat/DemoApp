@@ -6,13 +6,13 @@ object StringUtil {
 
     private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
 
-    fun buildImageUrl(path : String) = "${IMAGE_BASE_URL}${path}"
+    fun buildImageUrl(path: String) = "${IMAGE_BASE_URL}${path}"
 
-    fun getGenresList(genres : List<Genre>) : String {
-        var lastIndex = genres.lastIndex
+    fun getGenresList(genres: List<Genre>): String {
+        val lastIndex = genres.lastIndex
         var concatGenreList = ""
-        for((index, genre) in genres.withIndex()) {
-            concatGenreList += if(lastIndex == index) {
+        for ((index, genre) in genres.withIndex()) {
+            concatGenreList += if (lastIndex == index) {
                 "${genre.name}"
             } else {
                 "${genre.name} - "

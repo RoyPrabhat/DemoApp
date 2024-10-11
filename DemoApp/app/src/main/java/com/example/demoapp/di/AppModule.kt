@@ -22,29 +22,26 @@ object AppModule {
     @Provides
     @Singleton
     fun providesMovieService(client: OkHttpClient): MovieService {
-        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).
-               client(client).addConverterFactory(GsonConverterFactory.create()).
-               build().create(MovieService::class.java)
+        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(client)
+               .addConverterFactory(GsonConverterFactory.create()).build()
+               .create(MovieService::class.java)
     }
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(): OkHttpClient {
-        return OkHttpClient().newBuilder().
-               addInterceptor(getInterceptor()).build()
-    }
+    fun providesOkHttpClient() = OkHttpClient().newBuilder().addInterceptor(getInterceptor()).build()
+
 
     @Provides
     @Singleton
     @IoDispatcher
     fun providesIoDispatcher() = Dispatchers.IO
 
-    private fun getInterceptor() = Interceptor { chain->
+    private fun getInterceptor() = Interceptor { chain ->
         val request = chain.request()
         val newRequest = request.url.newBuilder().
             addQueryParameter(API_KEY, BuildConfig.TEST_API_KEY).
             build()
-        chain.proceed(request.newBuilder().
-        url(newRequest).build())
+        chain.proceed(request.newBuilder().url(newRequest).build())
     }
 }

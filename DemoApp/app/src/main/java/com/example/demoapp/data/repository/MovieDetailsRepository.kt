@@ -1,9 +1,10 @@
 package com.example.demoapp.data.repository
 
-import com.example.demoapp.data.api.ApiDataSource
-import javax.inject.Inject
+import com.example.demoapp.data.model.Movie
+import kotlinx.coroutines.flow.Flow
 
-class MovieDetailsRepository @Inject constructor(private val apiDataSource: ApiDataSource) {
+interface MovieDetailsRepository {
 
-    suspend fun getMovieDetails(id : Long) = apiDataSource.getMovieData(id)
+    suspend fun getMovieDetails(id: Long): Flow<Movie>
+
 }

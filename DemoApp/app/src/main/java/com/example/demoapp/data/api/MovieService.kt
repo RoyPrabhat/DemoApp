@@ -8,8 +8,8 @@ import retrofit2.http.Path
 interface MovieService {
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedMovies() : MovieList
+    suspend fun getTopRatedMovies(): MovieList
 
     @GET("movie/{movie_id}")
-    suspend fun getMovieData(@Path("movie_id") id : Long) : Movie
+    suspend fun getMovieData(@Path("movie_id") id: Long): Movie
 }
